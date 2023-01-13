@@ -14,7 +14,44 @@ function gin_custom_page_attachments_alter(&$page) {
   $page['#attached']['library'][] = 'gin_custom/toolbar';
 }
 
+/**
+ * Add a dark mode setting for Gin toolbar on all non-Gin themes.
+ */
+function gin_custom_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id = NULL)
+{
+  if (!_gin_toolbar_gin_is_active()) {
+    return;
+  }
+  $themeToBeConfigured = $form_state->getBuildInfo()['args'][0];
+  if (!$themeToBeConfigured) {
+    return;
+  }
+  if ($themeToBeConfigured == 'gin') {
+    return;
+  }
 
+  $form['gin_toolbar_force_darkmode'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Gin toolbar dark mode'),
+    '#default_value' => theme_get_setting('gin_toolbar_force_darkmode', $themeToBeConfigured),
+  ];
+}
+
+/**
+ * Inject dark mode for Gin toolbar on non-Gin themes
+ */
+function gin_custom_preprocess_html(&$variables) {
+  if (!_gin_toolbar_gin_is_active()) {
+    return;
+  }
+
+  $currentTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  if ($currentTheme == 'gin' || !(theme_get_setting('gin_toolbar_force_darkmode', $currentTheme) ?? FALSE)) {
+    return;
+  }
+
+  $variables['attributes']['class'][] = 'gin--dark-mode';
+}
 
 /**
  * Wraps views exposed filter forms inside a collapsable <details> element.
