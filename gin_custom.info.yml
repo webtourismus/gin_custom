@@ -5,3 +5,5 @@ package: Webtourismus.at
 core_version_requirement: ^10
 'interface translation project': gin_custom
 'interface translation server pattern': modules/contrib/gin_custom/translations/gin_custom.%language.po
+dependencies:
+  - gin_toolbar:gin_toolbar

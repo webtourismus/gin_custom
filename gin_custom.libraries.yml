@@ -1,0 +1,23 @@
+admin:
+  version: 0.0.1
+  css:
+    theme:
+      css/admin.css: {}
+  js:
+    js/admin.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+toolbar:
+  version: 0.0.1
+  css:
+    theme:
+      css/toolbar.css: {}
+  js:
+    js/toolbar.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

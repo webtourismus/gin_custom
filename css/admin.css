@@ -1,0 +1,9 @@
+/**
+ * remove any outlines from views exposed form in admin theme,
+ * because it is wrapped inside a <details> element to save screen space
+ */
+.claro-details > .claro-details__summary + .views-exposed-form {
+  border: 0 none;
+  padding-bottom: 0;
+  box-shadow: none;
+}
