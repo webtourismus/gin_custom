@@ -4,14 +4,16 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Adds toolbar JS/CSS to all pages for admin users.
+ * Adds JS/CSS to all pages for admin users.
  */
 function gin_custom_page_attachments_alter(&$page) {
-  if (!_gin_toolbar_gin_is_active()) {
-    return;
+  if (_gin_toolbar_gin_is_active()) {
+    $page['#attached']['library'][] = 'gin_custom/toolbar';
   }
 
-  $page['#attached']['library'][] = 'gin_custom/toolbar';
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    $page['#attached']['library'][] = 'gin_custom/admin';
+  }
 }
 
 /**
