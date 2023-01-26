@@ -2,6 +2,7 @@
 
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\gin\GinSettings;
 
 /**
  * Adds JS/CSS to all pages for admin users.
@@ -10,17 +11,12 @@ function gin_custom_page_attachments_alter(&$page) {
   if (_gin_toolbar_gin_is_active()) {
     $page['#attached']['library'][] = 'gin_custom/toolbar';
   }
-
-  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
-    $page['#attached']['library'][] = 'gin_custom/admin';
-  }
 }
 
 /**
  * Add a dark mode setting for Gin toolbar on all non-Gin themes.
  */
-function gin_custom_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id = NULL)
-{
+function gin_custom_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id = NULL) {
   if (!_gin_toolbar_gin_is_active()) {
     return;
   }
@@ -81,4 +77,29 @@ function gin_custom_form_views_exposed_form_alter(&$form, FormStateInterface $fo
   $form['#prefix'] = Markup::create($prefix);
   $form['#suffix'] = Markup::create('</details>');
   $form['#attached']['library'][] = 'gin_custom/admin';
+}
+
+/**
+ * We want a clear visual separation between the global Admin navigation (toolbar)
+ * and the main admin working area. Therefore we use Gin's light theme in the main area,
+ * but change the toolbar to dark mode.
+ */
+function gin_custom_preprocess_toolbar(&$variables) {
+  if (!_gin_toolbar_gin_is_active()) {
+    return;
+  }
+  $settings = \Drupal::classResolver(GinSettings::class);
+
+  $toolbarVariant = $settings->get('classic_toolbar');
+  if ($toolbarVariant == 'classic') {
+    return;
+  }
+
+  $colorschema = $settings->get('enable_darkmode');
+  if ($colorschema) {
+    return;
+  }
+
+  $variables['attributes']['class'][] = 'gin--dark-mode';
+  $variables['attributes']['data-gin-accent'] = $settings->get('preset_accent_color');
 }
