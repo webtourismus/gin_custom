@@ -2,7 +2,18 @@
 
 @tailwind base;
 @tailwind components;
+
+/**
+ * Empty CKeditor longtext fields are quite narrow and don't indicate clearly
+ * enough that they are input fields.
+ * This style must be outside Tailwind @layer's because the classname is injected dynamically on client-side.
+ */
+.ck-editor__editable_inline {
+  min-height: 10rem;
+}
+
 @tailwind utilities;
+
 
 @layer components {
   /**
@@ -20,14 +31,6 @@
    */
   .form-element {
     width: 100%;
-  }
-
-  /**
-   * Empty CKeditor longtext fields are quite narrow and don't indicate clearly
-   * enough that they are input fields.
-   */
-  .ck-editor__editable_inline {
-    min-height: 10rem;
   }
 }
 
