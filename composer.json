@@ -1,0 +1,17 @@
+{
+    "name": "webtourismus/gin_custom",
+    "description": "Drupal Gin admin theme customizations",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Reinhard Hutter",
+            "email": "reinhard.hutter@webtourismus.at"
+        }
+    ],
+    "require": {
+        "drupal/core": "^10",
+        "drupal/gin": "^3",
+        "drupal/gin_toolbar": "^1",
+        "drupal/tailwind_jit": "^1"
+    }
+}

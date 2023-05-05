@@ -1,0 +1,10 @@
+name: Gin customization
+type: module
+description: Various minor "quality of life" customizations for the Gin admin theme
+package: Webtourismus.at
+core_version_requirement: ^10
+'interface translation project': gin_custom
+'interface translation server pattern': modules/contrib/gin_custom/translations/gin_custom.%language.po
+dependencies:
+  - tailwind_jit:tailwind_jit
+  - gin_toolbar:gin_toolbar
