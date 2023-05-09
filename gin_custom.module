@@ -63,7 +63,7 @@ function gin_custom_form_views_exposed_form_alter(&$form, FormStateInterface $fo
 
   $nonDefaultFilters = [];
   foreach ($form_state->getUserInput() as $key => $value) {
-    if (array_key_exists($key, $form) && array_key_exists('#default_value', $form[$key]['#default_value']) && $value != $form[$key]['#default_value']) {
+    if (array_key_exists($key, $form) && array_key_exists('#default_value', $form[$key]) && $value != $form[$key]['#default_value']) {
       $nonDefaultFilters[] = $form['#info']["filter-{$key}"]['label'];
     }
   }
