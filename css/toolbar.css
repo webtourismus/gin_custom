@@ -2,6 +2,6 @@
  * Use our brand in the toolbar.
  */
 .toolbar-icon-admin-toolbar-tools-help.toolbar-icon-default::before {
-  -webkit-mask-image: url(/modules/custom/gin_custom/images/webtourismus_toolbar_icon.svg) !important;
-  mask-image: url(/modules/custom/gin_custom/images/webtourismus_toolbar_icon.svg) !important;
+  -webkit-mask-image: url(/modules/contrib/gin_custom/images/webtourismus_toolbar_icon.svg) !important;
+  mask-image: url(/modules/contrib/gin_custom/images/webtourismus_toolbar_icon.svg) !important;
 }

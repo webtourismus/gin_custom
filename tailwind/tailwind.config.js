@@ -1,9 +1,8 @@
+let frontendConfig = {};
 try {
-  const frontendConfig = require('../../../../themes/custom/frontend/tailwind/tailwind-nopreflight.config.js');
+  frontendConfig = require('../../../../themes/custom/frontend/tailwind/tailwind-nopreflight.config.js');
 }
-catch (err) {
-  const frontendConfig = {};
-}
+catch (err) {}
 
 frontendConfig.corePlugins = {
   preflight: false,
