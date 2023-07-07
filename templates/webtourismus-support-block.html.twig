@@ -1,0 +1,28 @@
+<div {{ attributes.addClass('gin-layer-wrapper bg-[#a0242f] text-white') }}>
+  <div><a href="https://www.webtourismus.at" target="_blank" class="text-white hover:text-white/90 transition-all">{{ source('@gin_custom/images/webtourismus_logo.svg')|add_to_svg("max-w-full children:fill-current") }}</a></div>
+
+  <p>Haben Sie Fragen oder benötigen Sie Hilfe? Einfach anrufen oder eine E-Mail schreiben!</p>
+
+  <p>
+    {{ source('@fa6/solid/envelope.svg')|add_to_svg("inline h-[1em] w-[1.5em] mr-1 align-[-0.125em]") }}
+    <a href="mailto:office@webtourismus.at" class="text-white hover:text-white hover:underline">office@webtourismus.at</a>
+    <br>
+    {{ source('@fa6/solid/phone.svg')|add_to_svg("inline h-[1em] w-[1.5em] mr-1 align-[-0.125em]") }}
+    <a href="tel:0043557290610" class="text-white hover:text-white hover:underline">05572 90610</a>
+    <br>
+    {{ source('@fa6/solid/desktop.svg')|add_to_svg("inline h-[1em] w-[1.5em] mr-1 align-[-0.125em]") }}
+    <a href="https://get.teamviewer.com/webtourismus" target="_blank" class="text-white hover:text-white hover:underline">Fernwartung mit TeamViewer</a>
+  </p>
+
+  <p>
+    Oder persönlich mit einem Kaffee bei uns im Büro<br>
+    {{ source('@fa6/solid/location-dot.svg')|add_to_svg("inline h-[1em] w-[1.5em] mr-1 align-[-0.125em]") }}
+    <a href="https://www.webtourismus.at/lage-anreise" target="_blank" class="text-white hover:text-white hover:underline">Schwefel 91, 6850 Dornbirn, Österreich</a>
+  </p>
+
+  <p>
+    Bürozeiten<br>
+    Mo - Do: 09:00 - 17:00<br>
+    Fr: 09:00 - 13:00
+  </p>
+</div>

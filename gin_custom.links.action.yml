@@ -1,0 +1,17 @@
+gin_custom.page.link_add:
+  route_name: node.add
+  route_parameters:
+    node_type: page
+  title: 'Create new page'
+  appears_on:
+    - view.page.admin_list
+gin_custom.media.link_add:
+  route_name: entity.media.add_page
+  title: 'Create new media'
+  appears_on:
+    - view.media_admin.admin_list_image
+    - view.media_admin.admin_list_document
+    - view.media_admin.admin_list_video
+  options:
+    query:
+      destination: '/admin/media'

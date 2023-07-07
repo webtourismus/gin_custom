@@ -1,0 +1,5 @@
+services:
+  gin_custom.route_subscriber:
+    class: Drupal\gin_custom\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

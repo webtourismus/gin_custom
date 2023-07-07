@@ -5,3 +5,7 @@
   -webkit-mask-image: url(/modules/contrib/gin_custom/images/webtourismus_toolbar_icon.svg) !important;
   mask-image: url(/modules/contrib/gin_custom/images/webtourismus_toolbar_icon.svg) !important;
 }
+.toolbar-icon-admin-toolbar-tools-help.toolbar-icon-default:hover,
+.toolbar-icon-admin-toolbar-tools-help.toolbar-icon-default:focus {
+  --gin-color-primary: #d02f3d;
+}

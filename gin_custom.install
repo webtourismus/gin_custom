@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Set default Tailwind config
+ * Set default Tailwind config.
  */
 function gin_custom_install() {
   /** @var \Drupal\Core\Config\Config $config */

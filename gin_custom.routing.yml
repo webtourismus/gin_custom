@@ -1,0 +1,29 @@
+gin_custom.dashboard:
+  path: '/admin'
+  defaults:
+    _controller: '\Drupal\gin_custom\Controller\AdminController::dashboard'
+    _title: 'Dashboard'
+  requirements:
+    _permission: 'view the administration theme'
+  options:
+    _admin_route: TRUE
+gin_custom.site_settings:
+  path: '/admin/site_settings'
+  defaults:
+    _controller: '\Drupal\gin_custom\Controller\AdminController::toolbarMenuBlockPage'
+    _title: 'Site settings'
+    menu: editor
+    subtree: gin_custom.site_settings
+  requirements:
+    _role: 'administrator+editor'
+  options:
+    _admin_route: TRUE
+gin_custom.drupal_admin_toolbar:
+  path: '/admin/drupal_admin_toolbar'
+  defaults:
+    _controller: '\Drupal\gin_custom\Controller\AdminController::drupalAdminToolbar'
+    _title: 'Manage'
+  requirements:
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE

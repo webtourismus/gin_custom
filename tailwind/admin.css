@@ -1,3 +1,4 @@
+@import "../../../custom/backend/tailwind/admin.css";
 @config "./tailwind.config.js";
 
 @tailwind components;
@@ -30,6 +31,12 @@
 /**
  * Fix design of close icon in admin modals
  */
+.js-lpb-region > a.lpb-btn--add:first-child:last-child {
+  opacity: 1;
+}
+/**
+ * Fix design of close icon in admin modals
+ */
 .ui-dialog-titlebar .ui-button {
   padding: 0;
 }
@@ -37,6 +44,9 @@
 /**
  * Enlarge Layout Paragraphs dialogs
  */
+ .lbp-dialog {
+  min-width: 600px !important;
+}
 @media (min-width: 479px) {
   .lbp-dialog {
     min-width: 400px;
@@ -109,7 +119,7 @@
   /**
    * Form inputs provide a better visual structure when using full width.
    */
-  .form-element:where(:not(.form-element--type-select--small)) {
+  .form-element:where(:not(.form-element--type-select--small, select[data-drupal-selector=edit-action])) {
     width: 100%;
   }
 
@@ -135,7 +145,7 @@
   }
 
   :where(.ui-dialog) .media-library-wrapper {
-    margin: 0;
+    margin-top: 0;
   }
 
   /**
@@ -146,6 +156,47 @@
     flex-flow: row wrap;
     row-gap: 0.25em;
     column-gap: 1em;
+  }
+
+  /**
+   * numeric fields with prefix/suffix
+   */
+  .form-type--number {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    > label {
+      flex: 0 0 100%;
+    }
+
+    > input {
+      flex: 1 1 1%;
+    }
+
+    > .form-item__prefix, > .form-item__suffix {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    > .form-item__prefix {
+      margin-right: var(--space-xs);
+    }
+
+    > .form-item__description {
+      flex: 0 0 100%;
+    }
+  }
+
+  /**
+   * field cardinality module
+   */
+  .form-type--select.form-item--cardinality {
+    vertical-align: top;
+  }
+
+  .field--entity--paragraph.field--bundle--gallery.field--name--field_images {
+    @apply grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:gap-4;
   }
 }
 

@@ -5,11 +5,13 @@ declare(strict_types=1);
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\gin\GinSettings;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Element;
 
 /**
  * Adds JS/CSS to all pages for admin users.
  */
-function gin_custom_page_attachments_alter(&$page) {
+function gin_custom_page_attachments_alter(array &$page): void {
   if (_gin_toolbar_gin_is_active()) {
     $page['#attached']['library'][] = 'gin_custom/toolbar';
   }
@@ -18,7 +20,7 @@ function gin_custom_page_attachments_alter(&$page) {
 /**
  * Add a dark mode setting for Gin toolbar on all non-Gin themes.
  */
-function gin_custom_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+function gin_custom_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state, string $form_id = NULL): void {
   if (!_gin_toolbar_gin_is_active()) {
     return;
   }
@@ -40,7 +42,7 @@ function gin_custom_form_system_theme_settings_alter(&$form, FormStateInterface 
 /**
  * Inject dark mode for Gin toolbar on non-Gin themes
  */
-function gin_custom_preprocess_html(&$variables) {
+function gin_custom_preprocess_html(array &$variables): void {
   if (!_gin_toolbar_gin_is_active()) {
     return;
   }
@@ -56,7 +58,7 @@ function gin_custom_preprocess_html(&$variables) {
 /**
  * Wraps views exposed filter forms inside a collapsable <details> element.
  */
-function gin_custom_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function gin_custom_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
   if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
     return;
   }
@@ -85,7 +87,7 @@ function gin_custom_form_views_exposed_form_alter(&$form, FormStateInterface $fo
  * and the main admin working area. Therefore we use Gin's light theme in the main area,
  * but change the toolbar to dark mode.
  */
-function gin_custom_preprocess_toolbar(&$variables) {
+function gin_custom_preprocess_toolbar(array &$variables): void {
   if (!_gin_toolbar_gin_is_active()) {
     return;
   }
@@ -109,11 +111,12 @@ function gin_custom_preprocess_toolbar(&$variables) {
 /**
  * Automatically create node revisions, but hide all revision UI form elements.
  */
-function gin_custom_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (strpos($form_id, 'node') === FALSE) {
+function gin_custom_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  if (!preg_match('/^node_|media_|block_content_/', $form_id)) {
     return;
   }
 
+  // node forms (sidebar)
   if (array_key_exists('revision', $form)) {
     $form['revision']['#type'] = 'hidden';
     $form['revision']['#value'] = $form['revision']['#default_value'] ?? TRUE;
@@ -121,5 +124,80 @@ function gin_custom_form_alter(&$form, FormStateInterface $form_state, $form_id)
 
   if (array_key_exists('revision_log', $form)) {
     $form['revision_log']['#access'] = FALSE;
+  }
+
+  // media forms or similar (tabs below)
+  if (array_key_exists('revision_log_message', $form)) {
+    $form['revision_log_message']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Convert editor menu link titles into toolbar icons when the title is the path to a local .svg file
+ */
+function gin_custom_preprocess_menu(array &$variables): void {
+  if ($variables['menu_name'] != 'editor') {
+    return;
+  }
+  foreach ($variables['items'] as $key => $item) {
+    if (!isset($item['url']) ||
+      !($item['url'] instanceof Url)
+    ) {
+      continue;
+    }
+    $variables['items'][$key]['attributes']['title'] = $item['title'];
+    /** @var Url $url */
+    $url = $item['url'];
+    $attributes = $url->getOption('attributes');
+    if (!isset($attributes['title'])) {
+      continue;
+    }
+    if (preg_match('/^\/(libraries|themes|modules|core)\/[^\"\']+\.svg$/i', $attributes['title'])) {
+      $attributes['class'][] = "before:[-webkit-mask-image:url({$attributes['title']})!important]";
+      $attributes['class'][] = "before:[mask-image:url({$attributes['title']})!important]";
+      $attributes['title'] = $item['title'];
+      $variables['items'][$key]['url']->setOption('attributes', $attributes);
+    }
+  }
+}
+
+/**
+ * Implements hook_FORM_ID_alter().
+ */
+function gin_custom_form_user_login_form_alter(array &$form, FormStateInterface $form_state): void {
+  $form['#submit'][] = '_gin_custom_user_login_submit_redirect';
+}
+
+/**
+ * Callback for the login form redirection.
+ */
+function _gin_custom_user_login_submit_redirect(array $form, FormStateInterface $form_state): void {
+  $form_state->setRedirectUrl(Url::fromRoute('gin_custom.dashboard'));
+}
+
+function gin_custom_theme(): array {
+  return [
+    'webtourismus_support_block' => [
+      'variables' => [
+        'data' => []
+      ]
+    ]
+  ];
+}
+
+function gin_custom_gin_content_form_routes(): array {
+  return [
+    'entity.block_content.canonical',
+    'entity.block_content.edit_form',
+    'block_content.add_form',
+  ];
+}
+
+function gin_custom_form_field_config_edit_form_alter(array &$form, FormStateInterface $form_state) {
+  if (!empty($form['third_party_settings']['allowed_formats'])) {
+    // @todo: remove this and contrib module once https://www.drupal.org/project/drupal/issues/3323007 is resolved
+    $form['third_party_settings']['allowed_formats']['allowed_formats']['#title'] = 'Allowed formats (DEPRECATED - Contrib module)';
+    $form['third_party_settings']['allowed_formats']['allowed_formats']['#description'] = 'Do not use these settings. The "allowed formats" functionality is now in Drupal core v10.1.0. Completely remove the contrib module "allowed_formats" when "hide filter tips" functionality is also provided by core itself. Until then allowing formats is done by core, but hiding is still done by contrib.';
+    $form['third_party_settings']['allowed_formats']['#access'] = FALSE;
   }
 }

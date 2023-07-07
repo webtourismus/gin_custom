@@ -7,4 +7,5 @@ version: 1.0.1
 'interface translation server pattern': modules/contrib/gin_custom/translations/gin_custom.%language.po
 dependencies:
   - tailwind_jit:tailwind_jit
+  - gin_login:gin_login
   - gin_toolbar:gin_toolbar
