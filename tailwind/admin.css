@@ -44,7 +44,7 @@
 /**
  * Enlarge Layout Paragraphs dialogs
  */
- .lbp-dialog {
+.lbp-dialog {
   min-width: 600px !important;
 }
 @media (min-width: 479px) {
@@ -68,7 +68,32 @@
   outline-offset: -1px;
 }
 
+/**
+ * Restyle layout selection
+ */
+.layout-select {
+  align-items: stretch;
+  gap: 10px;
+}
+.layout-select__item {
+  flex: 0 0 120px;
+  margin: 0 !important;
+}
+.layout-select__item label.option {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.layout-select__item-icon {
+  margin-right: 0;
 
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
 /**
  * Prevent scrollbars in admin UI
  */
@@ -196,7 +221,27 @@
   }
 
   .field--entity--paragraph.field--bundle--gallery.field--name--field_images {
-    @apply grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 sm:gap-4;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(120px, 100%), 1fr));
+    gap: 5px;
+  }
+
+  /**
+   * layouts with fixed height
+   */
+  [class*=component--grid] {
+    &.paragraph--type--image .field img,
+    &.paragraph--type--icon .field img,
+    &.paragraph--type--icon .field svg,
+    &.paragraph--type--linkblock .teaserable-image-container img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+  }
+
+  article.media[class*=aspect] {
+    aspect-ratio: unset;
   }
 }
 
