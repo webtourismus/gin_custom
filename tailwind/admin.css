@@ -148,6 +148,11 @@
     width: 100%;
   }
 
+  :where(.webform-element--title-inline) .form-element {
+    width: auto;
+  }
+
+
   /**
    * Field UI settings icon invisible in Gin
    */
@@ -211,6 +216,14 @@
     > .form-item__description {
       flex: 0 0 100%;
     }
+  }
+
+
+  /**
+   * Webforms
+   */
+  .webform-submission-form {
+    @apply flex flex-wrap children:m-0 gap-horizontal-[16px] gap-y-[24px] children:p-0 children:px-[8px] children:py-0 children:box-border;
   }
 
   /**

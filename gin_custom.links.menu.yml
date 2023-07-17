@@ -61,18 +61,23 @@ gin_custom.drupal_admin_toolbar.structure:
   title: 'Structure'
   parent: gin_custom.drupal_admin_toolbar
   weight: 10
+gin_custom.drupal_admin_toolbar.block_layout:
+  url: 'internal:/admin/structure/block'
+  title: 'Block layout'
+  parent: gin_custom.drupal_admin_toolbar
+  weight: 20
 gin_custom.drupal_admin_toolbar.config:
   url: 'internal:/admin/config'
   title: 'Configuration'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 20
+  weight: 30
 gin_custom.drupal_admin_toolbar.dblog:
   url: 'internal:/admin/reports/dblog'
   title: 'Recent log messages'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 30
+  weight: 40
 gin_custom.drupal_admin_toolbar.cache:
   url: 'internal:/admin/config/development/performance'
   title: 'Cache'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 40
+  weight: 50
