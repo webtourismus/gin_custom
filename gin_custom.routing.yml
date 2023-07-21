@@ -7,6 +7,17 @@ gin_custom.dashboard:
     _permission: 'view the administration theme'
   options:
     _admin_route: TRUE
+gin_custom.webform_submission_overview:
+  path: '/admin/webform_submission_overview'
+  defaults:
+    _controller: '\Drupal\gin_custom\Controller\AdminController::toolbarMenuBlockPage'
+    _title: 'Forms'
+    menu: editor
+    subtree: 'gin_custom.webform_submission.link_deriver:overview'
+  requirements:
+    _role: 'administrator+editor'
+  options:
+    _admin_route: TRUE
 gin_custom.site_settings:
   path: '/admin/site_settings'
   defaults:

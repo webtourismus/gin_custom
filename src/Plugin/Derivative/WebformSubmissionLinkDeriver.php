@@ -5,8 +5,10 @@ declare(strict_types = 1);
 namespace Drupal\gin_custom\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -14,7 +16,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriverInterface {
 
+  use StringTranslationTrait;
+
   public const WEBFORM_SUBMISSION_LINK_WEIGHT = 3000;
+
+  /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface;
+   */
+  protected $languageManager;
 
   /**
    * The entity type manager.
@@ -26,8 +37,9 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
   /**
    * {@inheritDoc}
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $languageManagerInterface) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->languageManager = $languageManagerInterface;
   }
 
   /**
@@ -35,7 +47,8 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('language_manager')
     );
   }
 
@@ -43,6 +56,7 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
    * {@inheritDoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
+    $menuIconDefault = '/libraries/fa6/svgs/regular/envelopes-bulk.svg';
     $links = [];
 
     $query = $this->entityTypeManager->getStorage('webform')->getQuery();
@@ -54,7 +68,7 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
     /** @var \Drupal\webform\Entity\Webform $webform */
     foreach ($webformEntities as $webform) {
       $linkId = 'gin_custom.webform:' . $webform->id();
-      $menuIcon = '/libraries/fa6/svgs/regular/envelopes-bulk.svg';
+      $menuIcon = $menuIconDefault;
       $description = $webform->get('description');
       if (!empty($description)) {
         $description = trim(strip_tags($description));
@@ -73,6 +87,28 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
       ] + $base_plugin_definition;
     }
 
+    if (count($links) >= 2) {
+      foreach ($links as &$link) {
+        $link['parent'] = 'gin_custom.webform_submission.link_deriver:overview';
+        unset($link['menu_name']);
+      }
+      $links['overview'] = [
+        'id' => 'overview',
+        'title' => $this->t('Forms'),
+        'route_name' => 'gin_custom.webform_submission_overview',
+        'weight' => self::WEBFORM_SUBMISSION_LINK_WEIGHT,
+        'menu_name' => 'editor',
+        'description' => $menuIconDefault,
+      ] + $base_plugin_definition;
+    }
+
     return $links;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return ['languages'];
   }
 }

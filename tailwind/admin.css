@@ -223,7 +223,12 @@
    * Webforms
    */
   .webform-submission-form {
-    @apply flex flex-wrap children:m-0 gap-horizontal-[16px] gap-y-[24px] children:p-0 children:px-[8px] children:py-0 children:box-border;
+    .form-item {
+      box-sizing: border-box;
+    }
+    & > .form-item {
+      margin: 0;
+    }
   }
 
   /**
