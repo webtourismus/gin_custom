@@ -18,3 +18,38 @@ msgstr ""
 # admin views exposed forms
 msgid "Modified filters: @filters"
 msgstr "Geänderte Filter: @filters"
+
+msgid "Global blocks"
+msgstr "Globale Blöcke"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Site settings"
+msgstr "Globale Einstellungen"
+
+msgid "System settings"
+msgstr "Systemeinstellungen"
+
+msgid "Menu links"
+msgstr "Menülinks"
+
+msgid "Drupal administration"
+msgstr "Drupal Administration"
+
+msgid "Blocks"
+msgstr "Blöcke"
+
+msgid "Add content block"
+msgstr "Neuen globalen Block erstellen"
+
+msgid "Create new page"
+msgstr "Neue Seite erstellen"
+
+msgid "No items selected"
+msgstr "Keine Elemente ausgewählt"
+
+msgid "1 item selected"
+msgid_plural "@count items selected"
+msgstr[0] "1 Element ausgewählt"
+msgstr[1] "@count Elemente ausgewählt"

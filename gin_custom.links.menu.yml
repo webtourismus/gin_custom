@@ -15,7 +15,7 @@ gin_custom.webform_submission.link_deriver:
   class: '\Drupal\Core\Menu\MenuLinkDefault'
   menu_name: editor
 gin_custom.navigation_menus:
-  title: 'Navigation menus'
+  title: 'Menu links'
   route_name: entity.menu.collection
   menu_name: editor
   description: '/libraries/fa6/svgs/regular/signs-post.svg'
@@ -56,28 +56,43 @@ gin_custom.drupal_admin_toolbar:
   menu_name: editor
   description: '/libraries/fa6/svgs/brands/drupal.svg'
   weight: 9000
+gin_custom.drupal_admin_toolbar.content:
+  url: 'internal:/admin/content'
+  title: 'Content'
+  parent: gin_custom.drupal_admin_toolbar
+  weight: 10
 gin_custom.drupal_admin_toolbar.structure:
   url: 'internal:/admin/structure'
   title: 'Structure'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 10
+  weight: 20
 gin_custom.drupal_admin_toolbar.block_layout:
   url: 'internal:/admin/structure/block'
   title: 'Block layout'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 20
+  weight: 30
 gin_custom.drupal_admin_toolbar.config:
   url: 'internal:/admin/config'
   title: 'Configuration'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 30
+  weight: 40
+gin_custom.drupal_admin_toolbar.user:
+  url: 'internal:/admin/people'
+  title: 'User'
+  parent: gin_custom.drupal_admin_toolbar
+  weight: 50
+gin_custom.drupal_admin_toolbar.language:
+  url: 'internal:/admin/config/regional'
+  title: 'Languages'
+  parent: gin_custom.drupal_admin_toolbar
+  weight: 60
 gin_custom.drupal_admin_toolbar.dblog:
   url: 'internal:/admin/reports/dblog'
   title: 'Recent log messages'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 40
+  weight: 70
 gin_custom.drupal_admin_toolbar.cache:
   url: 'internal:/admin/config/development/performance'
   title: 'Cache'
   parent: gin_custom.drupal_admin_toolbar
-  weight: 50
+  weight: 80
