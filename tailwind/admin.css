@@ -53,6 +53,39 @@
   }
 }
 
+.paragraph--unpublished {
+  background-color: #fda4af;
+}
+
+.paragraph--season--summer {
+  background-color: #86efac;
+
+  &.paragraph--unpublished {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #fda4af,
+      #fda4af 10px,
+      #86efac 10px,
+      #86efac 20px
+    );
+  }
+}
+
+.paragraph--season--winter {
+  background-color: #7dd3fc;
+
+  &.paragraph--unpublished {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #fda4af,
+      #fda4af 10px,
+      #7dd3fc 10px,
+      #7dd3fc 20px
+    );
+  }
+}
+
+
 /**
  * Our layout wrappers have an overflow-x-hidden (due negative margins on area layout gap),
  * this fixes the cut outline when hovering regions in the admin theme.
