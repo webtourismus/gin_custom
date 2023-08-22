@@ -9,12 +9,24 @@
  * They are ordered after "base" and "components", but before the "@tailwind utilities" directive.
  */
 
- /**
+/**
  * Empty CKeditor longtext fields are quite narrow and don't indicate clearly
  * enough that they are input fields.
  */
 .ck-editor__editable_inline {
   min-height: 10rem;
+}
+/**
+ * Enforce for buttons and header colors in CKeditor
+ */
+.ck.ck-editor__editable, .ck.ck-style-grid {
+  @apply cs-white;
+}
+/**
+ * Reduce clutter from disabled style in style dropdown in CKeditor
+ */
+.ck.ck-style-panel .ck-style-grid .ck-style-grid__button.ck-disabled {
+  display: none;
 }
 
 /**
