@@ -17,6 +17,15 @@
   min-height: 10rem;
 }
 /**
+ * Fixes for CKeditor inside modal dialog
+ */
+.ui-dialog .ck-editor__editable_inline {
+  max-height: calc(90vh - 19rem);
+}
+.ck-body-wrapper {
+  --ck-z-modal: 1261;
+}
+/**
  * Enforce for buttons and header colors in CKeditor
  */
 .ck.ck-editor__editable, .ck.ck-style-grid {
