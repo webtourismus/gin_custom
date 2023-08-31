@@ -292,7 +292,9 @@
     vertical-align: top;
   }
 
-  .field--entity--paragraph.field--bundle--gallery.field--name--field_images {
+  .field--entity--paragraph.field--bundle--gallery.field--name--field_images,
+  .field--entity--paragraph.field--bundle--linkblock.field--name--field_images,
+  .field--entity--node.field--name--field_images {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(120px, 100%), 1fr));
     gap: 5px;
