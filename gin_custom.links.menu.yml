@@ -44,12 +44,18 @@ gin_custom.site_settings.categories:
   parent: gin_custom.site_settings
   description: '/libraries/fa6/svgs/regular/tags.svg'
   weight: 30
+gin_custom.site_settings.favicon:
+  url: 'internal:/admin/config/user-interface/responsive_favicons'
+  title: 'Favicon'
+  parent: gin_custom.site_settings
+  description: '/libraries/fa6/svgs/regular/window.svg'
+  weight: 40
 gin_custom.site_settings.seo:
   url: 'internal:/admin/config/search'
   title: 'SEO'
   parent: gin_custom.site_settings
   description: '/libraries/fa6/svgs/brands/google.svg'
-  weight: 40
+  weight: 50
 gin_custom.drupal_admin_toolbar:
   title: 'Drupal administration'
   route_name: gin_custom.drupal_admin_toolbar
