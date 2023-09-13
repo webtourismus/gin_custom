@@ -215,15 +215,3 @@ function gin_custom_form_field_config_edit_form_alter(array &$form, FormStateInt
     $form['third_party_settings']['allowed_formats']['#access'] = FALSE;
   }
 }
-
-function gin_custom_preprocess_field(&$variables, $hook): void {
-  if (!in_array($variables['field_type'], ['text', 'text_long', 'text_with_summary',])) {
-    return;
-  }
-  $currentTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
-  if ($currentTheme != 'gin') {
-    return;
-  }
-  // enforce colorscheme for buttons, headers, etc. inside CKeditor
-  $variables['attributes']->addClass('cs-white');
-}

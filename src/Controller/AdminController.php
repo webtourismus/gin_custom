@@ -104,7 +104,6 @@ class AdminController extends ControllerBase {
         foreach ($options['attributes']['class'] as $idx => $possiblyAnIcon) {
           if (preg_match('/\/(libraries|themes|modules|core)\/[^\"\'\)]+\.svg/i', trim($possiblyAnIcon), $matches)) {
             $menuIcon = $matches[0];
-            unset($options['attributes']['class'][$idx]);
             break 1;
           }
         }
@@ -121,11 +120,14 @@ class AdminController extends ControllerBase {
         '#title' => $link->getTitle(),
       ];
       $content[$key]['title'] = $title;
-      $content[$key]['options'] = $options;
       $content[$key]['description'] = $description;
       $url = $link->getUrlObject();
       $urlAttributes = $url->getOption('attributes');
       unset($urlAttributes['title']);
+      if ($possiblyAnIcon && is_array($urlAttributes['class']) && in_array($possiblyAnIcon, $urlAttributes['class'])) {
+        // remove the toolbar link icon, which would override the chevron icon from the menu block link
+        $urlAttributes['class'] = array_diff($urlAttributes['class'], [$possiblyAnIcon]);
+      }
       $url->setOption('attributes', $urlAttributes);
       $content[$key]['url'] = $url;
     }
