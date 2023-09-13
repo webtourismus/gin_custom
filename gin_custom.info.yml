@@ -2,10 +2,9 @@ name: Gin customizations
 type: module
 description: Various minor "quality of life" customizations for the Gin admin theme
 core_version_requirement: ^10.1
-version: 1.0.12
+version: 1.1.0
 'interface translation project': gin_custom
 'interface translation server pattern': modules/contrib/gin_custom/translations/gin_custom.%language.po
 dependencies:
-  - tailwind_jit:tailwind_jit
   - gin_login:gin_login
   - gin_toolbar:gin_toolbar

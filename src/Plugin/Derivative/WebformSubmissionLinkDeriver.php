@@ -56,7 +56,7 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
    * {@inheritDoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    $menuIconDefault = '/libraries/fa6/svgs/regular/envelopes-bulk.svg';
+    $menuIconDefault = 'before:![mask-image:url(/libraries/fa6/svgs/regular/envelopes-bulk.svg)]';
     $links = [];
 
     $query = $this->entityTypeManager->getStorage('webform')->getQuery();
@@ -72,8 +72,9 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
       $description = $webform->get('description');
       if (!empty($description)) {
         $description = trim(strip_tags($description));
-        if (preg_match('/^\/(libraries|themes|modules|core)\/[^\"\']+\.svg$/i', $description)) {
-          $menuIcon = $description;
+        if (preg_match('/before:!\[mask\-image:url\(\/(libraries|themes|modules|core)\/[^\"\']+\.svg\)\]/i', $description, $matches)) {
+          $menuIcon = $matches[0];
+          $description = NULL;
         }
       }
       $links[$linkId] = [
@@ -83,7 +84,11 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
         'route_parameters' => ['webform' => $webform->id()],
         'weight' => self::WEBFORM_SUBMISSION_LINK_WEIGHT,
         'menu_name' => 'editor',
-        'description' => $menuIcon,
+        'options' => [
+          'attributes' => [
+            'class' => [$menuIcon],
+          ],
+        ],
       ] + $base_plugin_definition;
     }
 
@@ -98,7 +103,11 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
         'route_name' => 'gin_custom.webform_submission_overview',
         'weight' => self::WEBFORM_SUBMISSION_LINK_WEIGHT,
         'menu_name' => 'editor',
-        'description' => $menuIconDefault,
+        'options' => [
+          'attributes' => [
+            'class' => [$menuIconDefault],
+          ],
+        ],
       ] + $base_plugin_definition;
     }
 

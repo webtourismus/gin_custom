@@ -54,18 +54,7 @@ class AdminController extends ControllerBase {
   }
 
   public function dashboard() {
-    $tiles = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'gin-custom-dashboard-tiles',
-          'grid',
-          'md:grid-cols-2',
-          'gap-12',
-          'mb-12'
-        ]
-      ]
-    ];
+    $tiles = [];
     $query = $this->entityTypeManager()->getStorage('block')->getQuery();
     $query->condition('id', 'gin_dashboard_', 'STARTS_WITH');
     $query->condition('status', true);
@@ -75,8 +64,9 @@ class AdminController extends ControllerBase {
       $tiles[$blockId] = $this->entityTypeManager()->getViewBuilder('block')->view($block);
     }
     $output = [
-      'tiles' => $tiles,
-      'reduced_admin_menu' => $this->toolbarMenuBlockPage('editor'),
+      '#theme' => 'gin_custom_dashboard',
+      '#tiles' => $tiles,
+      '#toolbar_menu_block' => $this->toolbarMenuBlockPage('editor'),
     ];
     return $output;
   }
@@ -108,24 +98,30 @@ class AdminController extends ControllerBase {
         continue;
       }
       $menuIcon = '/libraries/fa6/svgs/regular/file.svg';
-      $description = $link->getDescription();
-      if (!empty($description)) {
-        $possiblyAnIcon = trim(strip_tags($description));
-        if (preg_match('/^\/(libraries|themes|modules|core)\/[^\"\']+\.svg$/i', $possiblyAnIcon)) {
-          $menuIcon = $description;
-          $description = NULL;
+      $options = $link->getOptions();
+      // Add toolbar icons inline into the title
+      if (!empty($options['attributes']['class'])) {
+        foreach ($options['attributes']['class'] as $idx => $possiblyAnIcon) {
+          if (preg_match('/\/(libraries|themes|modules|core)\/[^\"\'\)]+\.svg/i', trim($possiblyAnIcon), $matches)) {
+            $menuIcon = $matches[0];
+            unset($options['attributes']['class'][$idx]);
+            break 1;
+          }
         }
       }
+      // Add descriptions used for icons into the title (webform, views)
+      $description = $link->getDescription();
+      if (preg_match('/\/(libraries|themes|modules|core)\/[^\"\'\)]+\.svg/i', $description, $matches)) {
+        $menuIcon = $matches[0];
+        $description = NULL;
+      }
       $title = [
-        '#type' => 'inline_template',
-        '#template' => '{{ inline_svg_icon|raw }} {{ title}}',
-        '#context' => [
-          'inline_svg_icon' => str_replace('<svg class="', '<svg class="inline-block h-[1em] w-[1.5em] mr-1 align-[-0.125em] ', file_get_contents(DRUPAL_ROOT . $menuIcon)),
-          'title' => $link->getTitle(),
-        ]
+        '#theme' => 'toolbar_menu_block_page_item',
+        '#icon' => $menuIcon,
+        '#title' => $link->getTitle(),
       ];
       $content[$key]['title'] = $title;
-      $content[$key]['options'] = $link->getOptions();
+      $content[$key]['options'] = $options;
       $content[$key]['description'] = $description;
       $url = $link->getUrlObject();
       $urlAttributes = $url->getOption('attributes');

@@ -1,8 +1,17 @@
 toolbar:
-  version: 0.0.2
+  version: 1.0.13
   css:
     theme:
       css/toolbar.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+admin:
+  version: 1.1.0
+  css:
+    theme:
+      css/admin.css: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

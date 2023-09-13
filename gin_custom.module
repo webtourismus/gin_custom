@@ -14,6 +14,10 @@ function gin_custom_page_attachments_alter(array &$page): void {
   if (_gin_toolbar_gin_is_active()) {
     $page['#attached']['library'][] = 'gin_custom/toolbar';
   }
+  $currentTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  if ($currentTheme == 'gin') {
+    $page['#attached']['library'][] = 'gin_custom/admin';
+  }
 }
 
 /**
@@ -151,9 +155,8 @@ function gin_custom_preprocess_menu(array &$variables): void {
     if (!isset($attributes['title'])) {
       continue;
     }
-    if (preg_match('/^\/(libraries|themes|modules|core)\/[^\"\']+\.svg$/i', $attributes['title'])) {
-      $attributes['class'][] = "before:[-webkit-mask-image:url({$attributes['title']})!important]";
-      $attributes['class'][] = "before:[mask-image:url({$attributes['title']})!important]";
+    if (preg_match('/^before:!\[mask\-image:url\(\/(libraries|themes|modules|core)\/[^\"\']+\.svg\)\]$/i', $attributes['title'], $matches)) {
+      $attributes['class'][] = $matches[0];
       $attributes['title'] = $item['title'];
       $variables['items'][$key]['url']->setOption('attributes', $attributes);
     }
@@ -176,11 +179,23 @@ function _gin_custom_user_login_submit_redirect(array $form, FormStateInterface 
 
 function gin_custom_theme(): array {
   return [
+    'gin_custom_dashboard' => [
+      'variables' => [
+        'tiles' => NULL,
+        'toolbar_menu_block' => NULL,
+      ],
+    ],
     'webtourismus_support_block' => [
       'variables' => [
-        'data' => []
-      ]
-    ]
+        'data' => [],
+      ],
+    ],
+    'toolbar_menu_block_page_item' => [
+      'variables' => [
+        'icon' => NULL,
+        'title' => NULL,
+      ],
+    ],
   ];
 }
 
@@ -199,4 +214,16 @@ function gin_custom_form_field_config_edit_form_alter(array &$form, FormStateInt
     $form['third_party_settings']['allowed_formats']['allowed_formats']['#description'] = 'Do not use these settings. The "allowed formats" functionality is now in Drupal core v10.1.0. Completely remove the contrib module "allowed_formats" when "hide filter tips" functionality is also provided by core itself. Until then allowing formats is done by core, but hiding is still done by contrib.';
     $form['third_party_settings']['allowed_formats']['#access'] = FALSE;
   }
+}
+
+function gin_custom_preprocess_field(&$variables, $hook): void {
+  if (!in_array($variables['field_type'], ['text', 'text_long', 'text_with_summary',])) {
+    return;
+  }
+  $currentTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  if ($currentTheme != 'gin') {
+    return;
+  }
+  // enforce colorscheme for buttons, headers, etc. inside CKeditor
+  $variables['attributes']->addClass('cs-white');
 }

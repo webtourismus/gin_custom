@@ -2,13 +2,19 @@ gin_custom.dashboard:
   url: 'internal:/admin'
   title: 'Dashboard'
   menu_name: editor
-  description: '/libraries/fa6/svgs/regular/heart.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/heart.svg)]'
   weight: -10
 gin_custom.media:
   url: 'internal:/admin/media'
   title: 'Media library'
   menu_name: editor
-  description: '/libraries/fa6/svgs/regular/image.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/image.svg)]'
   weight: 1000
 gin_custom.webform_submission.link_deriver:
   deriver: '\Drupal\gin_custom\Plugin\Derivative\WebformSubmissionLinkDeriver'
@@ -18,49 +24,73 @@ gin_custom.navigation_menus:
   title: 'Menu links'
   route_name: entity.menu.collection
   menu_name: editor
-  description: '/libraries/fa6/svgs/regular/signs-post.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/signs-post.svg)]'
   weight: 7000
 gin_custom.site_settings:
   title: 'Site settings'
   route_name: gin_custom.site_settings
   menu_name: editor
-  description: '/libraries/fa6/svgs/regular/screwdriver-wrench.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/screwdriver-wrench.svg)]'
   weight: 8000
 gin_custom.site_settings.system:
   url: 'internal:/admin/config/system/site-information'
   title: 'System settings'
   parent: gin_custom.site_settings
-  description: '/libraries/fa6/svgs/regular/screwdriver-wrench.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/screwdriver-wrench.svg)]'
   weight: 10
 gin_custom.site_settings.global_blocks:
   url: 'internal:/admin/content/block'
   title: 'Global blocks'
   parent: gin_custom.site_settings
-  description: '/libraries/fa6/svgs/regular/table-layout.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/table-layout.svg)]'
   weight: 20
 gin_custom.site_settings.categories:
   url: 'internal:/admin/structure/taxonomy'
   title: 'Categories'
   parent: gin_custom.site_settings
-  description: '/libraries/fa6/svgs/regular/tags.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/tags.svg)]'
   weight: 30
 gin_custom.site_settings.favicon:
   url: 'internal:/admin/config/user-interface/responsive_favicons'
   title: 'Favicon'
   parent: gin_custom.site_settings
-  description: '/libraries/fa6/svgs/regular/window.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/regular/window.svg)]'
   weight: 40
 gin_custom.site_settings.seo:
   url: 'internal:/admin/config/search'
   title: 'SEO'
   parent: gin_custom.site_settings
-  description: '/libraries/fa6/svgs/brands/google.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/brands/google.svg)]'
   weight: 50
 gin_custom.drupal_admin_toolbar:
   title: 'Drupal administration'
   route_name: gin_custom.drupal_admin_toolbar
   menu_name: editor
-  description: '/libraries/fa6/svgs/brands/drupal.svg'
+  options:
+    attributes:
+      class:
+        - 'before:![mask-image:url(/libraries/fa6/svgs/brands/drupal.svg)]'
   weight: 9000
 gin_custom.drupal_admin_toolbar.content:
   url: 'internal:/admin/content'
