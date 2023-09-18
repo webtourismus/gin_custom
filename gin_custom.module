@@ -206,12 +206,3 @@ function gin_custom_gin_content_form_routes(): array {
     'block_content.add_form',
   ];
 }
-
-function gin_custom_form_field_config_edit_form_alter(array &$form, FormStateInterface $form_state) {
-  if (!empty($form['third_party_settings']['allowed_formats'])) {
-    // @todo: remove this and contrib module once https://www.drupal.org/project/drupal/issues/3323007 is resolved
-    $form['third_party_settings']['allowed_formats']['allowed_formats']['#title'] = 'Allowed formats (DEPRECATED - Contrib module)';
-    $form['third_party_settings']['allowed_formats']['allowed_formats']['#description'] = 'Do not use these settings. The "allowed formats" functionality is now in Drupal core v10.1.0. Completely remove the contrib module "allowed_formats" when "hide filter tips" functionality is also provided by core itself. Until then allowing formats is done by core, but hiding is still done by contrib.';
-    $form['third_party_settings']['allowed_formats']['#access'] = FALSE;
-  }
-}
