@@ -62,16 +62,16 @@
 /**
  * Visual clues in admin interface for unpublished and seasonal paragraphs
  */
-.paragraph--unpublished {
+ .paragraph.paragraph--unpublished {
   background-color: #fda4af;
 }
-.paragraph--season--summer {
+.paragraph.paragraph--season--summer {
   background-color: #86efac;
 }
-.paragraph--season--winter {
+.paragraph.paragraph--season--winter {
   background-color: #7dd3fc;
 }
-.paragraph--season--summer.paragraph--unpublished {
+.paragraph.paragraph--season--summer.paragraph--unpublished {
   background-image: repeating-linear-gradient(
     45deg,
     #fda4af,
@@ -80,7 +80,7 @@
     #86efac 20px
   );
 }
-.paragraph--season--winter.paragraph--unpublished {
+.paragraph.paragraph--season--winter.paragraph--unpublished {
   background-image: repeating-linear-gradient(
     45deg,
     #fda4af,
