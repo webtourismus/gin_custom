@@ -3,12 +3,14 @@
  * enough that they are input fields.
  */
 .ck-editor__editable_inline {
-  min-height: 10rem;
+  min-height: max(var(--ck-min-height), 10rem) !important;
 }
 /**
  * Fixes for CKeditor inside modal dialog
  */
 .ui-dialog .ck-editor__editable_inline {
+  /* prevent the styles dropdown from being cropped due overflowing the dialog container */
+  min-height: max(var(--ck-min-height), 470px) !important;
   max-height: calc(90vh - 19rem);
 }
 .ck-body-wrapper {
