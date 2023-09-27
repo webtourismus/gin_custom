@@ -110,7 +110,7 @@ class AdminController extends ControllerBase {
       }
       // Add descriptions used for icons into the title (webform, views)
       $description = $link->getDescription();
-      if (preg_match('/\/(libraries|themes|modules|core)\/[^\"\'\)]+\.svg/i', $description, $matches)) {
+      if (is_string($description) && preg_match('/\/(libraries|themes|modules|core)\/[^\"\'\)]+\.svg/i', $description, $matches)) {
         $menuIcon = $matches[0];
         $description = NULL;
       }
