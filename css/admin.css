@@ -1,4 +1,13 @@
 /**
+ * #####################################################################################################################
+ * Project-independent improvements for Gin admin theme styling.
+ * ---------------------------------------------------------------------------------------------------------------------
+ * Many rules here are !important because this module CSS file is loaded before admin theme CSS files
+ * (and modules can not depend on themes).
+ * #####################################################################################################################
+ */
+
+ /**
  * Empty CKeditor longtext fields are quite narrow and don't indicate clearly
  * enough that they are input fields.
  */
@@ -197,7 +206,7 @@ kbd {
   * Remove Gin styling.
   */
 .form-item__description, .fieldset__description {
-  max-width: none;
+  max-width: none !important;
 }
 
 /**
