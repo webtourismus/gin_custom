@@ -203,10 +203,10 @@ kbd {
 }
 
 /**
-  * Remove Gin styling.
+  * Adjust Gin styling for field description help texts.
   */
-.form-item__description, .fieldset__description {
-  max-width: none !important;
+.form-item__description, .fieldset__description, .claro-details__description {
+  --gin-max-line-length: 100%;
 }
 
 /**
@@ -273,6 +273,9 @@ kbd {
   vertical-align: top;
 }
 
+/**
+  * galleries and multi-value image fields
+  */
 .field--entity--paragraph.field--bundle--gallery.field--name--field_images,
 .field--entity--paragraph.field--bundle--linkblock.field--name--field_images,
 .field--entity--node.field--name--field_images {
@@ -282,6 +285,23 @@ kbd {
 }
 
 /**
+  * views reference fields
+  */
+.field--entity--paragraph.field--type--viewsreference .view-content.gin-layer-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    grid-auto-rows: minmax(100px, 300px);
+    gap: 10px;
+    max-height: 700px;
+    overflow-y: scroll;
+
+    > .views-row {
+      overflow: clip;
+      pointer-events: none;
+    }
+  }
+
+  /**
   * layouts with fixed height
   */
 [class*=component--grid].paragraph--type--image .field img,

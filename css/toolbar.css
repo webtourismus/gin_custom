@@ -9,3 +9,20 @@
 .toolbar-icon-admin-toolbar-tools-help.toolbar-icon-default:focus {
   --gin-color-primary: #d02f3d;
 }
+
+/**
+ * Fix white BG on black toolbar
+ */
+ #toolbar-administration .toolbar-menu-administration a.is-active {
+  background-color: var(--gin-bg-item-hover);
+}
+#toolbar-administration .toolbar-menu__trigger {
+  background-color: var(--gin-bg-layer) !important;
+}
+
+/**
+ * Hide node preview view mode switch
+ */
+.node-preview-form-select .form-item-view-mode {
+  display: none !important;
+}
