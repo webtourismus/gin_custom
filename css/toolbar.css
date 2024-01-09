@@ -21,8 +21,17 @@
 }
 
 /**
- * Hide node preview view mode switch
+ * Better node preview toolbar
  */
+@media (min-width: 641px) {
+  .node-preview-form-select::after {
+    color: yellow;
+    content: 'Only preview, not yet saved';
+  }
+  html[lang=de] .node-preview-form-select::after {
+    content: 'Nur Vorschau, noch nicht gespeichert';
+  }
+}
 .node-preview-form-select .form-item-view-mode {
   display: none !important;
 }
