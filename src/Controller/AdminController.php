@@ -97,9 +97,11 @@ class AdminController extends ControllerBase {
       if ($link->getPluginId() == 'gin_custom.dashboard') {
         continue;
       }
-      $menuIcon = '/libraries/fa6/svgs/regular/file.svg';
-      $options = $link->getOptions();
+
       // Add toolbar icons inline into the title
+      $menuIcon = '/libraries/fa6/svgs/regular/file.svg';
+      $possiblyAnIcon = NULL;
+      $options = $link->getOptions();
       if (!empty($options['attributes']['class'])) {
         foreach ($options['attributes']['class'] as $idx => $possiblyAnIcon) {
           if (preg_match('/\/(libraries|themes|modules|core)\/[^\"\'\)]+\.svg/i', trim($possiblyAnIcon), $matches)) {
