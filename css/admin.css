@@ -113,7 +113,13 @@
 :where(.field--widget-layout-paragraphs) .js-lpb-component:focus-within {
   outline-offset: -1px;
 }
-
+/**
+ * remove negative margin from left-right-linkblocks in admin
+ */
+.paragraph--view-mode--preview {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 /**
  * Restyle layout selection
  */
