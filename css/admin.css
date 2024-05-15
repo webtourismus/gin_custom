@@ -7,12 +7,19 @@
  * #####################################################################################################################
  */
 
- /**
+/**
  * Empty CKeditor longtext fields are quite narrow and don't indicate clearly
  * enough that they are input fields.
  */
 .ck-editor__editable_inline {
   min-height: max(var(--ck-min-height), 10rem) !important;
+}
+/**
+ * Default details styling also styles field group tabs,
+ * butthis clashes with .ck-content styles.
+ */
+ details.field-group-tab {
+  line-height: unset;
 }
 /**
  * Fixes for CKeditor inside modal dialog
