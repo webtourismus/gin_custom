@@ -16,7 +16,7 @@
 }
 /**
  * Default details styling also styles field group tabs,
- * butthis clashes with .ck-content styles.
+ * but this clashes with .ck-content styles.
  */
  details.field-group-tab {
   line-height: unset;
