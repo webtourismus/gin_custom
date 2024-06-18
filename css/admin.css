@@ -120,6 +120,7 @@
 :where(.field--widget-layout-paragraphs) .js-lpb-component:focus-within {
   outline-offset: -1px;
 }
+
 /**
  * remove negative margin from left-right-linkblocks in admin
  */
@@ -127,6 +128,7 @@
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
 /**
  * Restyle layout selection
  */
@@ -152,6 +154,7 @@
   width: 100%;
   height: auto;
 }
+
 /**
  * Prevent scrollbars in admin UI
  */
@@ -171,7 +174,6 @@
   top: calc(100% + 2px);
   padding-top: 4px;
 }
-
 .chosen-search-input {
   padding: 0 !important;
 }
@@ -186,6 +188,7 @@ kbd {
   padding: 0.05em 0.25em;
   box-shadow: inset 0.075em 0.075em 0.1em 0 rgba(0,0,0,0.5), inset -0.075em -0.075em 0.1em 0 rgba(0,0,0,0.75);
 }
+
 /**
   * Remove any outlines from views exposed form in admin theme,
   * because it is wrapped inside a <details> element to save screen space
@@ -206,6 +209,17 @@ kbd {
 :where(.webform-element--title-inline) .form-element {
   width: auto;
 }
+
+/**
+ * convert large list of checkboxes into multi-column by wrapping it in a fieldgroup container (module)
+ * and adding class
+ */
+.gin-custom-checkboxes-container .form-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: 0 1rem
+  }
+
 
 
 /**
@@ -325,10 +339,10 @@ kbd {
   height: 280px;
   object-fit: cover;
 }
-
 article.media[class*=aspect] {
   aspect-ratio: unset;
 }
+
 /**
   * Tailwind's default block class is disabled by configuration to prevent issues with Drupal's block class.
   * This is an alias for the Tailwind block utility class.
