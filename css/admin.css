@@ -29,9 +29,14 @@
   min-height: max(var(--ck-min-height), 470px) !important;
   max-height: calc(90vh - 19rem);
 }
+/* @see https://www.drupal.org/i/3328425 */
 .ck-body-wrapper {
-  --ck-z-modal: 1261;
+  /* until core:<10.3.0 */
+  --ck-z-modal: calc(var(--jui-dialog-z-index,1) + 999);
+  /* after core:>=10.3.0 */
+  --ck-z-panel: var(--ck-z-modal);
 }
+
 /**
  * Reduce clutter from disabled style in style dropdown in CKeditor
  */
