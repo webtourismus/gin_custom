@@ -350,3 +350,17 @@ article.media[class*=aspect] {
 .display-block {
   display: block;
 }
+
+/**
+ * Gin sticky table header has issues with Drupal weight module draggable
+ * and responsive views columns.
+ *
+ * @todo find a better solution here that fixes the problem,
+ *       and not just hides the problem.
+ * @see https://www.drupal.org/project/gin/issues/3455723
+ */
+.gin--sticky-table-header + .gin-table-scroll-wrapper {
+  > .tableresponsive-toggle-columns, > .tabledrag-toggle-weight-wrapper {
+    display: none;
+  }
+}
