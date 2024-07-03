@@ -369,3 +369,6 @@ article.media[class*=aspect] {
     display: none;
   }
 }
+.gin--sticky-table-header + .tabledrag-toggle-weight-wrapper {
+  display: none;
+}
