@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "drupal/core": "^10",
+        "drupal/core": "^10.3 || ^11",
         "drupal/gin": "^3",
         "drupal/gin_toolbar": "^1",
         "drupal/tailwind_jit": "^1"
