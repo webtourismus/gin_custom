@@ -124,7 +124,7 @@ class AdminController extends ControllerBase {
       $content[$key]['title'] = $title;
       $content[$key]['description'] = $description;
       $url = $link->getUrlObject();
-      $urlAttributes = $url->getOption('attributes');
+      $urlAttributes = $url->getOption('attributes') ?? [];
       unset($urlAttributes['title']);
       if ($possiblyAnIcon && is_array($urlAttributes['class']) && in_array($possiblyAnIcon, $urlAttributes['class'])) {
         // remove the toolbar link icon, which would override the chevron icon from the menu block link
