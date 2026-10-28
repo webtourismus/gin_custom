@@ -74,7 +74,7 @@ class AdminController extends ControllerBase {
   /**
    * @see \Drupal\system\Controller\SystemController::systemAdminMenuBlockPage()
    */
-  public function toolbarMenuBlockPage(string $menu, string $subtree = NULL) {
+  public function toolbarMenuBlockPage(string $menu, ?string $subtree = NULL) {
     // Only find the children of this link.
     $parameters = new MenuTreeParameters();
     $parameters->setRoot($subtree)->excludeRoot()->setTopLevelOnly()->onlyEnabledLinks();
@@ -84,6 +84,7 @@ class AdminController extends ControllerBase {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuTree->transform($tree, $manipulators);
+    $content = [];
     foreach ($tree as $key => $element) {
       // Only render accessible links.
       if (!$element->access->isAllowed()) {

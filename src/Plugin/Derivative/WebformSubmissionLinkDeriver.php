@@ -23,7 +23,7 @@ class WebformSubmissionLinkDeriver extends DeriverBase implements ContainerDeriv
   /**
    * The language manager.
    *
-   * @var \Drupal\Core\Language\LanguageManagerInterface;
+   * @var \Drupal\Core\Language\LanguageManagerInterface
    */
   protected $languageManager;
 

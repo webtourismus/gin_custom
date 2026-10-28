@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\gin\GinSettings;
@@ -21,9 +23,23 @@ function gin_custom_page_attachments_alter(array &$page): void {
 }
 
 /**
+ * Gets a theme setting on all supported Drupal versions.
+ *
+ * Theme_get_setting() is deprecated in Drupal 11.3 and removed in 13.0.
+ */
+function _gin_custom_theme_setting(string $settingName, string $theme): mixed {
+  return DeprecationHelper::backwardsCompatibleCall(
+    \Drupal::VERSION,
+    '11.3.0',
+    static fn (): mixed => \Drupal::service(ThemeSettingsProvider::class)->getSetting($settingName, $theme),
+    static fn (): mixed => theme_get_setting($settingName, $theme),
+  );
+}
+
+/**
  * Add a dark mode setting for Gin toolbar on all non-Gin themes.
  */
-function gin_custom_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state, string $form_id = NULL): void {
+function gin_custom_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state, ?string $form_id = NULL): void {
   if (!_gin_toolbar_gin_is_active()) {
     return;
   }
@@ -38,7 +54,7 @@ function gin_custom_form_system_theme_settings_alter(array &$form, FormStateInte
   $form['gin_toolbar_force_darkmode'] = [
     '#type' => 'checkbox',
     '#title' => t('Gin toolbar dark mode'),
-    '#default_value' => theme_get_setting('gin_toolbar_force_darkmode', $themeToBeConfigured),
+    '#default_value' => _gin_custom_theme_setting('gin_toolbar_force_darkmode', $themeToBeConfigured),
   ];
 }
 
@@ -51,7 +67,7 @@ function gin_custom_preprocess_html(array &$variables): void {
   }
 
   $currentTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
-  if ($currentTheme == 'gin' || !(theme_get_setting('gin_toolbar_force_darkmode', $currentTheme) ?? FALSE)) {
+  if ($currentTheme == 'gin' || !(_gin_custom_theme_setting('gin_toolbar_force_darkmode', $currentTheme) ?? FALSE)) {
     return;
   }
 
