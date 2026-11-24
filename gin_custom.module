@@ -215,10 +215,19 @@ function gin_custom_theme(): array {
   ];
 }
 
+/**
+ * Implements hook_gin_content_form_routes().
+ *
+ * Gin uses its content edit form (with sidebar) only for the routes listed
+ * here and its own defaults. Gin already includes the media add, canonical
+ * and edit routes, but not the media translation routes.
+ */
 function gin_custom_gin_content_form_routes(): array {
   return [
     'entity.block_content.canonical',
     'entity.block_content.edit_form',
     'block_content.add_form',
+    'entity.media.content_translation_add',
+    'entity.media.content_translation_edit',
   ];
 }

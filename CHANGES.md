@@ -1,5 +1,12 @@
 # CHANGES
 
+##### 2026-11-24 1.2.6
+
+- FEATURE: Gin's content edit form (with sidebar) is also used for the media
+  translation routes (`entity.media.content_translation_add` and
+  `entity.media.content_translation_edit`). Replaces the Gin patch for
+  drupal.org issue #3281343.
+
 ##### 2026-11-02 1.2.5
 
 - BUGFIX: Version in gin_custom.info.yml matches the release.
